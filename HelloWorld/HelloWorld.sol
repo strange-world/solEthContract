@@ -9,6 +9,5 @@ contract HelloWorld {
     }
     function remove() public {
         selfdestruct(payable(address(0x0)));
-        //comment
     }
 }

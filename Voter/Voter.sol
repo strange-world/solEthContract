@@ -4,6 +4,7 @@ contract Voter{
 
     uint[] public votes;
     string[] public options;
+    mapping (address => bool) hasVoted;    
     
     constructor (string[] memory _options){
         options=_options;
@@ -11,7 +12,13 @@ contract Voter{
     }
     function vote(uint option) public {
         require(option < options.length, "Invalid Option");
+        require(!hasVoted[msg.sender], "Already Voted");
 
+        recordVote(option);
+
+    }
+    function recordVote(uint option) private{
+        hasVoted[msg.sender] = true;
         votes[option] = votes[option] + 1;
     }
 
